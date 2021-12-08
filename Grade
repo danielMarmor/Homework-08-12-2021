@@ -1,0 +1,76 @@
+class Grade:
+    grade_current_index = 0
+    sum_grades = 0
+
+    MIN_GRADE = 0
+    MAX_GRADE = 100
+
+    def __init__(self, student_name, topic, grade_param):
+        self.__grade_index = Grade.grade_current_index + 1
+        self.__student_name = student_name
+        self.topic = topic
+        self.grade = grade_param
+
+        Grade.grade_current_index += 1
+        Grade.sum_grades += self.__grade
+
+    @property
+    def grade(self):
+        return self.__grade
+
+    @grade.setter
+    def grade(self, new_grade):
+        if not isinstance(new_grade, int):
+            print('Grade must be Integer Number')
+            return
+        if new_grade < Grade.MIN_GRADE or new_grade > Grade.MAX_GRADE:
+            print(f'Grade Must be between {Grade.MIN_GRADE} and {Grade.MAX_GRADE}')
+            return
+        self.__grade = new_grade
+
+    @property
+    def student_name(self):
+        return self.__student_name
+
+    @property
+    def grade_index(self):
+        return self.__grade_index
+
+    @property
+    def topic(self):
+        return self.__topic
+
+    @topic.setter
+    def topic(self, new_topic):
+        if new_topic not in ('math', 'python', 'english'):
+            print('Not Is Subjects List!')
+            return
+        self.__topic = new_topic
+
+    def is_grade_higher_than_average(self):
+        avergae_grade = Grade.get_average()
+        is_higher_than_ave = self.__grade > avergae_grade
+        return is_higher_than_ave
+
+    @staticmethod
+    def get_average():
+        current_index = Grade.get_grade_current_index()
+        avergae_grade = 0 if current_index == 0 else Grade.sum_grades / current_index
+        return avergae_grade
+
+    @staticmethod
+    def get_grade_current_index():
+        return Grade.grade_current_index
+
+    def __str__(self):
+        return f'Index={self.grade_index} StudentName={self.student_name} Topic={self.topic} Grade={self.grade} ' \
+               f'Is higher than average={self.is_grade_higher_than_average()}'
+
+    def __repr__(self):
+        return f'Index={self.grade_index} StudentName={self.student_name} Topic={self.topic} Grade={self.grade} ' \
+               f'Is higher than average={self.is_grade_higher_than_average()}'
+
+
+
+
+
